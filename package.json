@@ -1,0 +1,23 @@
+{
+  "name": "mud-autodoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "autodoc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gesslar/mud-autodoc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gesslar/mud-autodoc/issues"
+  },
+  "homepage": "https://github.com/gesslar/mud-autodoc#readme",
+  "dependencies": {
+    "async": "^3.2.0"
+  }
+}

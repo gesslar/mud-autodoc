@@ -1,0 +1,35 @@
+{
+    "mudlib"   : "/frogdice/thresh_fluffos/lib",
+    "documents": "/doc/help/autodoc",
+    "tags"     : [
+        [ "\\s*\/\/###",    "fixme" ],
+        [ "^//\\:MODULE",   "modules"],
+        [ "^//\\:SEFUN",    "simul_efun"],
+        [ "^//\\:FIXME",    "fixme"],
+        [ "^//\\:TODO",     "todo"],
+        [ "^//\\:LFUN",     "lfun"]
+    ],
+    "filters" : {
+        "paths" : [
+            "/open/",
+            "/data/", 
+            "/doc/",
+            "/include/",
+            "/log/",
+            "/tmp/",
+            "/obj/special/",
+            "/.git/",
+            "/u/",
+            "/lib/",
+            "/adm/etc",
+            "/adm/news"
+        ],
+        "terms" : [
+            "attic", 
+            "old",
+            "data",
+            "weapon2",
+            "DATA"
+        ]
+    }
+}
