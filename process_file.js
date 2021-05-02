@@ -1,22 +1,66 @@
 const fs = require("fs")
 const async = require("async")
 const config = require("./config.js") 
+const XRegExp = require("xregexp")
 
 module.exports = file => {
 
     const processFileData = ( file, data, callback ) => {
+        const mudlibFileName = file.slice(config.mudlib.length)
+        let localFileName = mudlibFileName.slice( mudlibFileName.lastIndexOf("/") + 1 ).slice(0, -2)
         const lines = data.split("\n")
-        let line = 0
+        let lineNumber = 0
+        
 
-        while(line++ < lines.length) {
-            config.tags.forEach( tag => {
-                const regexp = new RegExp( tag[0] )
-                if( regexp.exec( lines[line] ) !== null ) {
-                    console.log(`${file} - ${tag[1]} - ${lines[line]}`)
+        while(lineNumber < lines.length) {
+            
+            let tagNumber = 0
+            
+            while(tagNumber < config.tags.length ) {
+                const tag = config.tags[tagNumber]
+                const regexp = new RegExp( tag.expression )
+                const result = regexp.exec( lines[lineNumber] )
+
+                // No matches
+                if( result !== null ) {
+                
+                    let out = "" 
+
+                    if( tag.expression.startsWith("^") ) { // we have a single-line start to an annotation block
+                        if( result.length > 1 ) { // we had capture groups, therefore it's a function name
+                            const functionName = `${result.slice(1).join(" ").trim()}`
+                            localFileName = functionName
+
+                            out += `Described in ${mudlibFileName} at line ${lineNumber}\n`
+
+                            // let's find the prototype
+                            const regexString = `^[\\w\\s]*\\s*${functionName}\\s*\\(.*\\)$`
+                            const funcRegex = new RegExp( regexString, "m" )
+                            const regexResults = funcRegex.exec( data )
+
+                            if( regexResults !== null ) {
+                                out += `Prototype: ${regexResults[0]}`
+                            }
+                        }
+                        lineNumber++ // go to the next line after the tag
+                        while( lines[lineNumber].startsWith("//")) {
+                            out += lines[lineNumber].slice(2).trim() + "\n" 
+                            lineNumber++
+                        }
+                    }
+
+                    if(out.length) {
+                        console.log(`:: Writing to ${config.mudlib}${config.documents}/${tag.directory}/${localFileName} ::`)
+                        console.log(out)
+                    }
                 }
-            })
+
+                tagNumber++ 
+            }
+
+            lineNumber ++ 
         }
-        // callback( "We done with " + file )
+        callback( null )
     }
 
     const queue = async.queue ( ( task, callback ) => {
@@ -30,7 +74,7 @@ module.exports = file => {
 
     queue.push( { file: file }, ( err, res ) => {
         if(err) console.error( err )
-        else console.log( res )
+        // else console.log( res )
     })
 
 }
