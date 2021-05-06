@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const async = require("async")
-const config = require(path.join(__dirname, "config") 
+const config = require(path.join(__dirname, "config"))
 
 function readFiles( files ) {
     files.forEach( file => {
@@ -54,7 +54,7 @@ function processFileData ( file, data, writeFileCallback ) {
                     const left = center - 2
                     const right = 80 - left - 4 - len 
 
-                    header = `${":".repeat(left)}  ${functionName}  ${":".repeat(right)}\n\n`
+                    header = `${":".repeat(left)}  ${functionName}  ${":".repeat(right)}\n`
                     footer = `\n(Described in ${mudlibFileName} at line ${lineNumber + 1})\n`
 
                     // let's find the prototype
