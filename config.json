@@ -2,11 +2,12 @@
     "mudlib"   : "/frogdice/thresh_fluffos/lib",
     "documents": "/doc/help/autodoc",
     "tags"     : [
-        { "expression" : "^//\\:MODULE\\s*$",       "directory" : "modules" },
-        { "expression" : "^//\\:SEFUN\\s*(.*)\\s*$","directory" : "simul_efun" },
-        { "expression" : "^//\\:FIXME\\s*$",        "directory" : "fixme" },
-        { "expression" : "^//\\:TODO\\s*$",         "directory" : "todo" },
-        { "expression" : "^//\\:LFUN\\s*(.*)\\s*$", "directory" : "lfun" }
+        { "expression" : "\\s*\/\/###\\s(.*)$",      "directory" : "fixme",      "type" : "documentation", "includeLineNumber" : true },
+        { "expression" : "^//\\:MODULE\\s*$",        "directory" : "modules",    "type" : "documentation" },
+        { "expression" : "^//\\:SEFUN\\s*(.*)\\s*$", "directory" : "simul_efun", "type" : "function" },
+        { "expression" : "^//\\:FIXME\\s*$",         "directory" : "fixme",      "type" : "documentation",  "includeLineNumber" : true },
+        { "expression" : "^//\\:TODO\\s*$",          "directory" : "todo",       "type" : "documentation",  "includeLineNumber" : true },
+        { "expression" : "^//\\:LFUN\\s*(.*)\\s*$",  "directory" : "lfun",       "type" : "function" }
     ],
     "filters" : {
         "paths" : [

@@ -1,25 +1,31 @@
 "use strict"
 
 const fs = require("fs")
-const config = require("./config.js") 
-const { dirname } = require("path")
-const configObj = require("./config.js")
-const processFile = require("./process_file")
+const path = require("path")
 
-// Config information
-const baseDirectory = config.mudlib 
-const autodocDirectory = baseDirectory + config.documents 
+const config = require(path.join(__dirname, "config"))
+const processFiles = require(path.join(__dirname, "process_file"))
+const removeDir = require(path.join(__dirname, "remove_dir"))
 
-// Runtime information
-const directoryStack = [ `${baseDirectory}/` ]
-const files_to_process = [] 
+const autodoc = () => {
 
-const run = () => {
+    // Config information
+    const baseDirectory = config.mudlib 
+    const autodocDirectory = path.join(baseDirectory, config.documents)
+   
+    // autodoctime information
+    const directoryStack = []
+
+    // First recursively remove the autodoc directories
+    removeDir(autodocDirectory)
+
+    // Reset the directory stack to work with discovery of mudlib directories
+    directoryStack.splice(0, directoryStack.length)
+    directoryStack.push( `${baseDirectory}/`)
 
     while( directoryStack.length > 0 ) {
         const dirPath = directoryStack.shift()
 
-        // console.log( dirPath )
         // Discover sub-directories in the current directory and add them to the stack
         fs.readdirSync(dirPath, { withFileTypes: true })
             .filter(dir => dir.isDirectory())
@@ -29,15 +35,15 @@ const run = () => {
             .forEach( dir => directoryStack.push( dir ) )
 
         // Now find all the source files in the current and process them
-        fs.readdirSync(dirPath, { withFileTypes: true })
+        const files = fs.readdirSync(dirPath, { withFileTypes: true })
             .filter( file => file.isFile() )
             .filter( file => config.filters.termRegex.exec( file.name ) === null )
             .filter( file => file.name.endsWith(".c"))
             .map( file => `${dirPath}${file.name}` )
-            .forEach( file => processFile(file) )
+
+        if( files.length ) processFiles( files )
     }
 
 }
 
-// Start the scan
-run()
+module.exports = autodoc
