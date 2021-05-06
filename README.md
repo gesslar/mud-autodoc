@@ -20,11 +20,11 @@ autodoc-generated documentation, without a trailing `/`.
 An array of objects that contain the definitions for each of the types of
 documentation that you would like to find and document, in the form of
 
-```json
+```
 {
     "expression": String, 
     "directory" : String,
-    "type : String,
+    "type" : String,
     "includeLineNumber": Boolean
 }
 ```
