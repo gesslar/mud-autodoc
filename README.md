@@ -39,8 +39,8 @@ for this documentation type.
 documentation type
 3. __type__ - The type of documentation. Valid values are: `documentation`,
 `function`.
-4. __includeLineNumber__ - Only valid for documents of type `function`, if `true`
-this will include the file and line number where the match occurred.
+4. __includeLineNumber__ - If `true` this will include the file and line number
+where the match occurred.
 
 ### filters
 Describes items that will be ignored by the scanner.
