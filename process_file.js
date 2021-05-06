@@ -1,6 +1,7 @@
 const fs = require("fs")
+const path = require("path")
 const async = require("async")
-const config = require("./config.js") 
+const config = require(path.join(__dirname, "config") 
 
 function readFiles( files ) {
     files.forEach( file => {
