@@ -7,6 +7,9 @@ results to an autodoc directory.
 Copy `config.sample.json` to `config.json` and modify the values within to your
 particular mudlib.
 
+__WARNING__ Running the autodoc app deletes and rewrites all documentation
+specified in the `documents` path.
+
 ## config.json
 
 ### mudlib
