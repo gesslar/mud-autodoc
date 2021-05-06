@@ -10,6 +10,8 @@ particular mudlib.
 __WARNING__ Running the autodoc app deletes and rewrites all documentation
 specified in the `documents` path.
 
+After configuring `config.json`, perform: `node run`
+
 ## config.json
 
 ### mudlib
