@@ -63,7 +63,7 @@ function processFileData ( file, data, writeFileCallback ) {
                     const regexResults = funcRegex.exec( data )
 
                     if( regexResults !== null ) {
-                        prototype = `\nPrototype: ${regexResults[0]}\n`
+                        prototype = `\n${regexResults[0]}\n\n`
                     }
                 } else if( tag.type === "documentation" ) {
                 }
